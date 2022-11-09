@@ -3,12 +3,12 @@
 
 
 ## Authors
-  - Yan Li, Department of Electrical and Computer Engineering, University of Toronto
-  - Moshe Eizenman, Department of Ophthalmology & Vision Sciences, University of Toronto
-  - Runjie B. Shi, Institute of Biomedical Engineering and Temerty Faculty of Medicine, University of Toronto
-  - Yvonne Buys, Department of Ophthalmology & Vision Sciences, University of Toronto
-  - Graham Trope, Department of Ophthalmology & Vision Sciences, University of Toronto
-  - Willy Wong, Department of Electrical and Computer Engineering and Institute of Biomedical Engineering, University of Toronto
+  - **Yan Li**, Department of Electrical and Computer Engineering, University of Toronto
+  - **Moshe Eizenman**, Department of Ophthalmology & Vision Sciences, University of Toronto
+  - **Runjie B. Shi**, Institute of Biomedical Engineering and Temerty Faculty of Medicine, University of Toronto
+  - **Yvonne Buys**, Department of Ophthalmology & Vision Sciences, University of Toronto
+  - **Graham Trope**, Department of Ophthalmology & Vision Sciences, University of Toronto
+  - **Willy Wong**, Department of Electrical and Computer Engineering and Institute of Biomedical Engineering, University of Toronto
 
 
 ## Usage
