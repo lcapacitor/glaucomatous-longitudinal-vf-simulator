@@ -2,7 +2,7 @@
  This repository is a part of the paper "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma"
 
 
-# Authors
+## Authors
   - Yan Li, Department of Electrical and Computer Engineering, University of Toronto
   - Moshe Eizenman, Department of Ophthalmology & Vision Sciences, University of Toronto
   - Runjie B. Shi, Institute of Biomedical Engineering and Temerty Faculty of Medicine, University of Toronto
@@ -11,7 +11,7 @@
   - Willy Wong, Department of Electrical and Computer Engineering and Institute of Biomedical Engineering, University of Toronto
 
 
-# Usage
+## Usage
 Load the **Rotterdam**[[1]](#1) and **Washington**[[2]](#2) longitudinal visual field datasets and process the baseline VF tests:
 ```
 data_list_rt  = load_all_rt_by_eyes(pt_list=None, ceiling=ceiling, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
@@ -32,8 +32,7 @@ selected_eye = [218]
 vf_simulator.visualize_var_rates(vf_data_list, repeat_per_eye=100, sim_len=15, test_interval=0.5, progress_rate='random', selected_eye=selected_eye) 
 ```
 
-# License
-----
+## License
 MIT
 
 
