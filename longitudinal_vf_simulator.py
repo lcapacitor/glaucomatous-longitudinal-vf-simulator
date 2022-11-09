@@ -491,7 +491,7 @@ class Longitudinal_VF_simulator:
         else:
             return processed_data
 
-    def simulate(self, vf_data, sim_len, test_interval, min_gh_dist, progress_rate, progress_range=[10, 5],
+    def simulate(self, vf_data, sim_len, test_interval, min_gh_dist=10, progress_rate='random', progress_range=[10, 5],
                  noise_model='template', sim_data_type='random', progress_cluster='multi-cluster', verbose=0):
         """
         baseline_list: arrays (n, 52*3+2), where n is the number of eyes
@@ -517,7 +517,7 @@ class Longitudinal_VF_simulator:
             print (f'Total simulated progressing eyes: {simulated_progress_data.shape}, stable eyes: {simulated_stable_data.shape}')
         return simulated_stable_data, simulated_progress_data
 
-    def visualize_var_rates(self, vf_data, selected_eye, repeat_per_eye, sim_len, test_interval, min_gh_dist, progress_rate, prog_rate_factor=[0.5, 1, 2], progress_range=[10, 5], 
+    def visualize_var_rates(self, vf_data, repeat_per_eye, sim_len, test_interval, progress_rate, selected_eye=None, min_gh_dist=10, prog_rate_factor=[0.5, 1, 2], progress_range=[10, 5], 
                             noise_model='template', progress_cluster=['multi-cluster', 'multi-cluster', 'multi-cluster'], save_path=None, save_fig_obj=False):
         assert len(prog_rate_factor)==len(progress_cluster)
         num_cols   = 8
@@ -639,8 +639,12 @@ class Longitudinal_VF_simulator:
 
 
 if __name__ == '__main__':
-    
+    #==========================================================
+    # Usage Examples:
+    #==========================================================
     from utils import load_all_rt_by_eyes, load_all_uw_by_eyes
+
+    # Load and process Rotterdam and Washington datasets
     ceiling = 35
     data_list_rt  = load_all_rt_by_eyes(pt_list=None, ceiling=ceiling, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
     data_list_uw  = load_all_uw_by_eyes(pt_list=None, ceiling=ceiling, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
@@ -651,12 +655,17 @@ if __name__ == '__main__':
     print(f'[INFO] UW data contains {len(data_list_uw)} eligible eyes, {np.sum([x.shape[0] for x in data_list_uw])} tests')
     print(f'[INFO] Total: {num_eyes} eyes, {np.sum(num_test_list)} tests')
 
+    # Process baseline VF tests
     vf_simulator = Longitudinal_VF_simulator()
     vf_data_list = vf_simulator.process_baseline(data_list_all)
-    #simulated_stable_data, simulated_progress_data = vf_simulator.simulate(vf_data_list, sim_len=21, test_interval=0.5, min_gh_dist=10, progress_rate='random', progress_range=[10, 5],
-    #                                                                       noise_model='template', sim_data_type='random', progress_cluster='multi-cluster', verbose=2)
-    #print (simulated_stable_data.shape, simulated_progress_data.shape)#
-    """    """
+    print(f'[INFO] Total eligible eyes {len(vf_data_list)}')
+
+    # Simulate stable and progressing VF sequences
+    simulated_stable_data, simulated_progress_data = vf_simulator.simulate(vf_data_list, sim_len=15, test_interval=0.5, verbose=0)
+    print (simulated_stable_data.shape, simulated_progress_data.shape)
+
+    # Visualize VF sequences for the given eye 
     selected_eye = [218]
-    vf_simulator.visualize_var_rates(vf_data_list, selected_eye, repeat_per_eye=500, sim_len=15, test_interval=0.5, min_gh_dist=10, progress_rate='random', prog_rate_factor=[0.5, 1, 2], progress_range=[10, 5], 
-                                     noise_model='template', progress_cluster=[1, 3, 6], save_path=None, save_fig_obj=False)#'./figures/simulated/demo_sim_progress_sequence'
+    vf_simulator.visualize_var_rates(vf_data_list, repeat_per_eye=100, sim_len=15, test_interval=0.5, progress_rate='random', selected_eye=selected_eye, save_path='./figures/simulated/demo_sim_progress_sequence')
+
+    
