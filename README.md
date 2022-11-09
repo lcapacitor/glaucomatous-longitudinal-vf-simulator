@@ -46,5 +46,5 @@ MIT
 <a id="1">[1]</a> 
 Bryan SR, Vermeer KA, Eilers PH, Lemij HG, Lesaffre EM. Robust and censored modeling and prediction of progression in glaucomatous visual fields. Investigative ophthalmology & visual science. 2013 Oct 1;54(10):6694-700.
 
-<a id="1">[2]</a> 
+<a id="2">[2]</a> 
 Montesano G, Chen A, Lu R, Lee CS, Lee AY. UWHVF: A Real-World, Open Source Dataset of Perimetry Tests From the Humphrey Field Analyzer at the University of Washington. Translational vision science & technology. 2022 Jan 3;11(1):2-.
