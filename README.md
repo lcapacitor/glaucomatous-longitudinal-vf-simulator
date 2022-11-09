@@ -31,6 +31,8 @@ Visualize simulation VF sequences
 selected_eye = [218]
 vf_simulator.visualize_var_rates(vf_data_list, repeat_per_eye=100, sim_len=15, test_interval=0.5, progress_rate='random', selected_eye=selected_eye) 
 ```
+![vf_simulator](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_eye_218/eye_218_101.png)
+
 
 ## License
 MIT
