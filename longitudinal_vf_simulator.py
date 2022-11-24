@@ -681,7 +681,7 @@ if __name__ == '__main__':
     print(f'[INFO] Total eligible eyes {len(vf_data_list)}')
 
     # Simulate stable and progressing VF sequences
-    simulated_stable_data, simulated_progress_data = vf_simulator.simulate(vf_data_list, sim_len=15, test_interval=0.5, verbose=2)
+    simulated_stable_data, simulated_progress_data = vf_simulator.simulate(vf_data_list, sim_len=15, test_interval=0.5, verbose=0)
     print (simulated_stable_data.shape, simulated_progress_data.shape)
 
     # Visualize VF sequences for the given eye 
