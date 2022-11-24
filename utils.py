@@ -285,15 +285,12 @@ def show_sim_vf(vf, d_set_name, d_type_name, field_type=0, prog_pat=None,
 
         if prog_pat is None:
             save_path  = f'./figures/simulated/{d_set_name}'
-            fig.suptitle('Eye #{} {}, MD slope: {:.2f} dB/year, p={:.2f}'
-                         .format(eye if eye_index is None else eye_index, \
-                                 d_set_name+'_'+d_type_name if d_set_name is None else d_set_name, \
-                                 md_slope, md_pval))
+            fig.suptitle('{}, MD slope: {:.2f} dB/year, p={:.2f}'
+                         .format(d_set_name+'_'+d_type_name if d_set_name is None else d_set_name, md_slope, md_pval))
         else:
             save_folder, fig_title = d_set_name.split('/')
             save_path = f'./figures/simulated/{save_folder}'
             eye_sn = fig_title.split(',')[0].split('#')[1]
-
             _,_,_, prog_center_list = prog_pat
             if len(prog_center_list)>1:
                 fig_title_= fig_title+'\nMD slope: {:.2f} dB/year, p={:.2f}'.format(md_slope, md_pval)

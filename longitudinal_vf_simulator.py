@@ -446,7 +446,8 @@ class Longitudinal_VF_simulator:
             is_save = True if verbose==3 else False
             sim_series_vec = np.expand_dims(simulated_eye,0)
             sim_series_mat = data_vec_2_mat(sim_series_vec)
-            show_sim_vf(vf=sim_series_mat, d_set_name=f'Stable eye', d_type_name='VF', field_type=0, 
+            cur_time_mili  = str(datetime.datetime.now().timestamp()).split('.')[1]
+            show_sim_vf(vf=sim_series_mat, d_set_name=f'Stable_eye #{cur_time_mili}', d_type_name='VF', field_type=0, 
                         num_flu=sim_len, is_grayscale=True, is_save=is_save)
         if verbose>1 and sim_type==1:
             is_save = True if verbose==3 else False
@@ -680,7 +681,7 @@ if __name__ == '__main__':
     print(f'[INFO] Total eligible eyes {len(vf_data_list)}')
 
     # Simulate stable and progressing VF sequences
-    simulated_stable_data, simulated_progress_data = vf_simulator.simulate(vf_data_list, sim_len=15, test_interval=0.5, verbose=0)
+    simulated_stable_data, simulated_progress_data = vf_simulator.simulate(vf_data_list, sim_len=15, test_interval=0.5, verbose=2)
     print (simulated_stable_data.shape, simulated_progress_data.shape)
 
     # Visualize VF sequences for the given eye 
