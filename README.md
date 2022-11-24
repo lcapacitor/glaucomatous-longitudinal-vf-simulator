@@ -33,7 +33,7 @@ simulated_stable_data, simulated_progress_data = vf_simulator.simulate(vf_data_l
 Visualize simulation VF sequences
 ```
 selected_eye = [218]
-vf_simulator.visualize_var_rates(vf_data_list, repeat_per_eye=100, sim_len=15, test_interval=0.5, progress_rate='random', selected_eye=selected_eye) 
+vf_simulator.visualize_var_rates(vf_data_list, repeat_per_eye=100, sim_len=15, test_interval=0.5, progress_cluster=['stable', 1, 3, 6], selected_eye=selected_eye) 
 ```
 
 
