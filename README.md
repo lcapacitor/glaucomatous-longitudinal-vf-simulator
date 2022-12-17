@@ -18,7 +18,7 @@ Panel (a): Visual field (VF) sequence of a glaucoma patient over a period of 7 y
 ## Usage
 #### Load the **Rotterdam**[[1]](#1) longitudinal visual field datasets and process the baseline VF tests:
 ```
-data_list_rt  = load_all_rt_by_eyes(pt_list=None, ceiling=ceiling, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
+data_list_rt = load_all_rt_by_eyes(pt_list=None, ceiling=ceiling, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
 vf_data_list = vf_simulator.process_baseline(data_list_rt)
 ```
 
