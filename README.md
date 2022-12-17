@@ -3,7 +3,7 @@
 
 ![vf_simulator](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_eye_218/eye_218_1090.png)
 
-Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. Panels (b)-(e): Simulated VF sequences for the same baseline VF test with different progression rates. The patient data show moderate VF progression loss with MD linear regression slope of −0.5 dB/year. Panels (b) shows a simulated stable VF sequence (MD slope of 0 dB/year). Panel (c) shows a simulated VF sequence with the same progression rate (MD slope of −0.5 dB/year) as the patient’s data. Panels (d) and (e) show simulated VF sequences with higher progression rates than that of the patient’s data (MD slopes of −1.0 dB/year and −1.5 dB/year, respectively). 
+Panel (a): Visual field (VF) sequence of a glaucoma patient over a period of 7 years. Panels (b)-(e): Simulated VF sequences for the same baseline VF test with different progression rates. The patient data show moderate VF progression loss with MD linear regression slope of −0.5 dB/year. Panels (b) shows a simulated stable VF sequence (MD slope of 0 dB/year). Panel (c) shows a simulated VF sequence with the same progression rate (MD slope of −0.5 dB/year) as the patient’s data. Panels (d) and (e) show simulated VF sequences with higher progression rates than that of the patient’s data (MD slopes of −1.0 dB/year and −1.5 dB/year, respectively). 
 
 
 ## Authors
