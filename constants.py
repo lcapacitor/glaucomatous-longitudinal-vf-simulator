@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-'''Simulation model for longitudinal Visual Field tests in glaucoma
+'''
+Simulation model for longitudinal Visual Field tests in glaucoma
 
-This is part of the work of "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma"
+This is part of the paper "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma"
 
 Author: Yan Li
 
 Version: v1.0
 
-Date: 2022-11
+Date: 2022-12
 
 License: MIT
 '''

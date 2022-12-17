@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-'''Simulation model for longitudinal Visual Field tests in glaucoma
+'''
+Simulation model for longitudinal Visual Field tests in glaucoma
 
-This is part of the work of "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma"
+This is part of the paper "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma"
 
 Author: Yan Li
 
 Version: v1.0
 
-Date: 2022-11
+Date: 2022-12
 
 License: MIT
 '''
@@ -29,7 +30,7 @@ from scipy import interpolate
 
 from utils import vfData_Padding, data_vec_2_mat, show_sim_vf, grayscale_pattern
 from constants import NORM_SLOPE, NORM_INTERCEPT, TD_WEIGHTS, LOC_24_2, EMPTY_INDEX_OD_72, MATRIX_784x54,\
-                      GHT_PD_THRES_p05, GH_MAP_52, VF_GRAY_PATTERN, PROBA_WITH_DEFECTS, PROBA_NO_DEFECTS
+                      GHT_PD_THRES_p05, GH_MAP_52, PROBA_WITH_DEFECTS, PROBA_NO_DEFECTS
 
 
 class Longitudinal_VF_simulator:
@@ -217,12 +218,14 @@ class Longitudinal_VF_simulator:
         #----------------------------------------
         if sim_data_type=='stable':
             sim_prog_num = 0
-        if sim_data_type=='progress':
-            sim_prog_num+= 1
         if progress_cluster=='single-cluster':
             sim_prog_num = 1 if sim_prog_num>0 else 0
         if type(progress_cluster)==int:
             sim_prog_num = progress_cluster
+        if isinstance(progress_cluster, (np.ndarray, list)):
+            low, high = min(progress_cluster), max(progress_cluster)
+            assert low<high
+            sim_prog_num = random.randint(low, high)
         #----------------------------------------
         if verbose>0:
             print ('\n\n')
@@ -518,19 +521,22 @@ class Longitudinal_VF_simulator:
             print (f'Total simulated progressing eyes: {simulated_progress_data.shape}, stable eyes: {simulated_stable_data.shape}')
         return simulated_stable_data, simulated_progress_data
 
-    def visualize_var_rates(self, vf_data, repeat_per_eye, sim_len, test_interval, selected_eye=None, min_gh_dist=10, progress_rate=['random', 'random', 'random', 'random'], 
-                            prog_rate_factor=[0, 1, 1, 1], progress_range=[10, 5], noise_model=['template', 'template', 'template', 'template'], 
-                            progress_cluster=['stable', 'multi-cluster', 'multi-cluster', 'multi-cluster'], save_path=None, save_fig_obj=False):
-        assert len(progress_rate)==len(prog_rate_factor)==len(progress_cluster)==len(noise_model)
+    def visualize_var_rates(self, vf_data, repeat_per_eye, sim_len=15, test_interval=0.5, selected_eye=None, min_gh_dist=10, progress_rate=['random', 'random', 'random', 'random'], 
+                            progress_cluster=['stable', 'multi-cluster', 'multi-cluster', 'multi-cluster'], progress_range=[10, 5], noise_model=None, condition_on=True, 
+                            save_path=None, save_fig_obj=False):
+        assert len(progress_rate)==len(progress_cluster)
+        if noise_model is None:
+            noise_model = ['template']*len(progress_cluster)
         num_sim_seq= len(progress_rate)
         num_cols   = 8
         num_rows   = 1 + num_sim_seq
         show_gap   = 1
         show_years = np.arange(0, num_cols, show_gap)
         show_index = [x-1 for x in range(1,sim_len+1) if (x-1)*test_interval in show_years]
-        panel_names= list(string.ascii_uppercase)[:num_rows]
+        panel_names= list(string.ascii_lowercase)[:num_rows]
         fontsize   = 8
-        with_display_condition = True
+        if condition_on:
+            slp_diff_thres = 0.1
         #===============================
         # Get statistics
         #===============================
@@ -579,23 +585,19 @@ class Longitudinal_VF_simulator:
                         sim_stable_data, _ = self.__simulate_one_sequence(real_base_vf, stats_params, sim_len, test_interval, min_gh_dist, noise_model=cur_noise, sim_data_type='stable')
                         sim_stable_selected= sim_stable_data[show_index]
                         demo_data_list.append(sim_stable_selected)
-                        # Display VF sequence satisfy conditions
-                        if with_display_condition:
+                        # Display VF sequence satisfy conditions: 1. stabel prog_rate should > -0.25
+                        if condition_on:
                             sim_stable_seq_md  = sim_stable_selected[:, 52*3+1]
                             sim_stable_seq_age = sim_stable_selected[:, 52*3]
                             sim_stable_seq_md_slp,_,_,_,_ = stats.linregress(sim_stable_seq_age, sim_stable_seq_md)
-                            if sim_stable_seq_md_slp<-0.25:
+                            if not abs(sim_stable_seq_md_slp)<slp_diff_thres:
                                 break
                     # Simulate progressing VF sequence
                     else:
-                        if cur_prog_rate!='random':
-                            cur_rate_f = prog_rate_factor[i]
-                            cur_prog_rate = cur_prog_rate * cur_rate_f
-
                         sim_prog_data, _ = self.__simulate_one_sequence(real_base_vf, stats_params, sim_len, test_interval, min_gh_dist, cur_prog_rate,
                                                                         noise_model=cur_noise, sim_data_type='progress', progress_cluster=cur_prog_type)
                         sim_prog_data_selected = sim_prog_data[show_index]
-                        if not with_display_condition:
+                        if not condition_on:
                             demo_data_list.append(sim_prog_data_selected)
                         else:
                             sim_prog_age= sim_prog_data_selected[:, 52*3]
@@ -603,14 +605,17 @@ class Longitudinal_VF_simulator:
                             sim_md_slp,_,_,_,_ = stats.linregress(sim_prog_age, sim_prog_md)
                             sim_prog_list.append(sim_prog_data_selected)
                             sim_prog_md_slope_list.append(sim_md_slp)
-                if with_display_condition and len(sim_prog_md_slope_list)>0:
+                if condition_on and len(sim_prog_md_slope_list)>0:
                     # Select desired MD slopes
-                    r0, r1, r2 = np.asarray(sorted(sim_prog_md_slope_list))[::-1]
-                    if not ((r0<0 and r0>=-0.3) and (abs(r1-real_seq_md_slp)<0.04) and (r2<=-0.95)):
-                        continue
-                    # Sort simulated VF sequence based on MD slope
-                    sim_prog_list_sort = [sim_prog_list[x] for x in np.argsort(sim_prog_md_slope_list)[::-1]]
-                    demo_data_list += sim_prog_list_sort
+                    if len(sim_prog_md_slope_list)==3:
+                        r1, r2, r3 = sim_prog_md_slope_list 
+                        if not ( (abs(r1-real_seq_md_slp)<slp_diff_thres) and (abs(r2-(-1.0))<slp_diff_thres) and (abs(r3-(-1.5))<slp_diff_thres) ):
+                            continue
+                        print(sim_stable_seq_md_slp, r1, r2, r3)
+                    else:
+                        pass
+                    # Add progressing VF sequences to the demo list
+                    demo_data_list += sim_prog_list
                 if len(demo_data_list)<num_sim_seq+1:
                     continue
                 #===============================
@@ -630,7 +635,7 @@ class Longitudinal_VF_simulator:
                         ax[r, c].set_axis_off()
                         if r==0:
                             if c==0:
-                                text = f'Init. MD={cur_md[0]:.1f}dB'
+                                text = f'Baseline: MD={cur_md[0]:.1f}dB'
                             elif c==num_cols-1:
                                 text = f'year {show_years[c]} MD={cur_md[-1]:.1f}dB'
                             else:
@@ -662,29 +667,21 @@ if __name__ == '__main__':
     #==========================================================
     # Usage Examples:
     #==========================================================
-    from utils import load_all_rt_by_eyes, load_all_uw_by_eyes
+    from utils import load_all_rt_by_eyes
 
     # Load and process Rotterdam and Washington datasets
-    ceiling = 35
-    data_list_rt  = load_all_rt_by_eyes(pt_list=None, ceiling=ceiling, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
-    data_list_uw  = load_all_uw_by_eyes(pt_list=None, ceiling=ceiling, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
-    data_list_all = data_list_rt + data_list_uw
-    num_test_list = [x.shape[0] for x in data_list_all]
-    num_eyes      = len(data_list_all)
+    data_list_rt  = load_all_rt_by_eyes(pt_list=None, ceiling=35, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
     print(f'[INFO] RT data contains {len(data_list_rt)} eligible eyes, {np.sum([x.shape[0] for x in data_list_rt])} tests')
-    print(f'[INFO] UW data contains {len(data_list_uw)} eligible eyes, {np.sum([x.shape[0] for x in data_list_uw])} tests')
-    print(f'[INFO] Total: {num_eyes} eyes, {np.sum(num_test_list)} tests')
 
     # Process baseline VF tests
     vf_simulator = Longitudinal_VF_simulator()
-    vf_data_list = vf_simulator.process_baseline(data_list_all)
+    vf_data_list = vf_simulator.process_baseline(data_list_rt)
     print(f'[INFO] Total eligible eyes {len(vf_data_list)}')
 
     # Simulate stable and progressing VF sequences
     simulated_stable_data, simulated_progress_data = vf_simulator.simulate(vf_data_list, sim_len=15, test_interval=0.5, verbose=0)
     print (simulated_stable_data.shape, simulated_progress_data.shape)
-
+    
     # Visualize VF sequences for the given eye 
     selected_eye = [218]
-    vf_simulator.visualize_var_rates(vf_data_list, repeat_per_eye=100, sim_len=15, test_interval=0.5, selected_eye=selected_eye, 
-                                     progress_cluster=['stable', 1, 3, 6], save_path='./figures/simulated/demo_sim_progress_sequence')
+    vf_simulator.visualize_var_rates(vf_data_list, repeat_per_eye=1000, selected_eye=selected_eye, progress_rate=[0,-1.5,-1.6,-2.5], progress_cluster=['stable',3,6,8])

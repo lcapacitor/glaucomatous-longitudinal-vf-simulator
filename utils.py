@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-'''Simulation model for longitudinal Visual Field tests in glaucoma
+'''
+Simulation model for longitudinal Visual Field tests in glaucoma
 
-This is part of the work of "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma"
+This is part of the paper "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma"
 
 Author: Yan Li
 
 Version: v1.0
 
-Date: 2022-11
+Date: 2022-12
 
 License: MIT
 '''
@@ -398,76 +399,6 @@ def load_all_rt_by_eyes(pt_list=None, ceiling=None, min_len=10, cut_type=None, f
             data_eye = np.hstack((vf_52_arr, td_52_arr, pd_52_arr, age_arr.reshape(-1, 1), md_arr.reshape(-1, 1)))
             #print (pt, side, data_eye.shape)
             assert np.sum(td_52_arr)==np.sum(td_52_arr)     #no NaN
-            assert data_eye.shape[0]>=min_len
-            out_data_list.append(data_eye)
-    return out_data_list
-
-
-def load_all_uw_by_eyes(pt_list=None, ceiling=None, min_len=10, cut_type=None, fu_year=None, md_range=None, verbose=1):
-    # Read csv file
-    df_uw = pd.read_csv('./data/UW/VF_Data.csv')
-    # Get patient list
-    if pt_list is None:
-        pt_list = df_uw['PatID'].unique().tolist()
-        if verbose>0:
-            print ('[INFO] load_data_UW: Number of patients in UW:', len(pt_list))
-
-    # Initialize the VF data container
-    out_data_list = []
-    # Get target colunm names
-    vf_col_names = [f'Sens_{x}' for x in range(1, 55) if x not in [26, 35]]
-    td_col_names = [f'TD_{x}'   for x in range(1, 55) if x not in [26, 35]]
-    pd_col_names = [f'PD_{x}'   for x in range(1, 55) if x not in [26, 35]]
-
-    for pt in tqdm(pt_list, leave=False):
-        for side in ['Right', 'Left']:
-            df_vfs = df_uw.loc[(df_uw['PatID']==pt) & (df_uw['Eye']==side)]
-            num_tests = df_vfs.shape[0]
-
-            # Skip the eye if less than min_len tests
-            if num_tests<min_len:
-                continue
-
-            # Select different number of tests per eye based on cut_type
-            if cut_type=='front':
-                df_vfs = df_vfs.iloc[:min_len]
-            elif cut_type=='back':
-                df_vfs = df_vfs.iloc[-min_len:]
-            elif cut_type is None:
-                pass
-            else:
-                raise ValueError(f"Unknown cut_type: {cut_type}, allow value: 'front' or 'back'")
-
-            # Get data arrays
-            age_arr= df_vfs['Age'].values
-            vf_arr = df_vfs[vf_col_names].values
-            vf_arr = np.clip(vf_arr, 0, ceiling)
-            td_arr = df_vfs[td_col_names].values
-            pd_arr = df_vfs[pd_col_names].values
-            md_arr = np.average(td_arr, axis=1)
-            assert vf_arr.shape==td_arr.shape==pd_arr.shape
-            assert age_arr.shape==md_arr.shape
-
-            # Select eyes satisfy follow-up years
-            if fu_year is not None:
-                fu_duration = age_arr[-1] - age_arr[0]
-                if fu_duration<fu_year:
-                    continue
-
-            # Select eyes satisfy MD slope
-            if md_range is not None:
-                md_slope, _,_,_,_ = stats.linregress(age_arr, md_arr)
-                if type(md_range)==float or type(md_range)==int:
-                    if md_slope<-abs(md_range) or md_slope>abs(md_range):
-                        continue
-                if type(md_range)==list:
-                    if md_slope<md_range[0] or md_slope>md_range[1]:
-                        continue
-
-            # Construct output data
-            data_eye = np.hstack((vf_arr, td_arr, pd_arr, age_arr.reshape(-1, 1), md_arr.reshape(-1, 1)))
-            #print (pt, side, data_eye.shape)
-            assert np.sum(td_arr)==np.sum(td_arr)     #no NaN
             assert data_eye.shape[0]>=min_len
             out_data_list.append(data_eye)
     return out_data_list
