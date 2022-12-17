@@ -1,5 +1,5 @@
 # Simulation model for longitudinal visual field tests in glaucoma
- This repository is a part of the paper "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma"
+ This repository is a part of the paper "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma" submitted to Translational Vision Science & Technology.
 
 ![vf_simulator](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_eye_218/eye_218_1090.png)
 
