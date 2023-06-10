@@ -1,9 +1,9 @@
 # Simulation model for longitudinal visual field tests in glaucoma
- This repository is a part of the paper "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma" submitted to Translational Vision Science & Technology.
+ This repository is a part of the paper "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma" published in Translational Vision Science & Technology June 2023.
 
 ![vf_simulator](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_eye_218/eye_218_1090.png)
 
-Panel (a): Visual field (VF) sequence of a glaucoma patient over a period of 7 years. Panels (b)-(e): Simulated VF sequences for the same baseline VF test with different progression rates. The patient data show moderate VF progression loss with MD linear regression slope of −0.5 dB/year. Panels (b) shows a simulated stable VF sequence (MD slope of 0 dB/year). Panel (c) shows a simulated VF sequence with the same progression rate (MD slope of −0.5 dB/year) as the patient’s data. Panels (d) and (e) show simulated VF sequences with higher progression rates than that of the patient’s data (MD slopes of −1.0 dB/year and −1.5 dB/year, respectively). 
+Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. The baseline VF has an arcuate-shaped scotoma in the superior field, and the VF sequence manifests a moderate progression with MD linear regression slope of -0.5 dB/year. Panels (b) shows a simulated stable VF sequence (MD slope of 0 dB/year). Panel (c) shows a simulated VF sequence with the same progression rate (MD slope of −0.5 dB/year) as the patient’s data. Panels (d) and (e) show simulated VF sequences with higher progression rates that of the patient’s data (MD slopes of −1.0 dB/year and −1.5 dB/year, respectively). 
 
 
 ## Authors
@@ -14,6 +14,8 @@ Panel (a): Visual field (VF) sequence of a glaucoma patient over a period of 7 y
   - **Graham Trope**, Department of Ophthalmology & Vision Sciences, University of Toronto
   - **Willy Wong**, Department of Electrical and Computer Engineering and Institute of Biomedical Engineering, University of Toronto
 
+## Demo
+ This [webpage](http://34.130.214.49:8080/) is a live demonstration of simulating longitudinal VF tests using our model and the corresponding glaucomatous visions.
 
 ## Usage
 #### Load the **Rotterdam**[[1]](#1) longitudinal visual field datasets and process the baseline VF tests:
