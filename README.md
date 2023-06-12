@@ -15,7 +15,7 @@ Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. The ba
   - **Willy Wong**, Department of Electrical and Computer Engineering and Institute of Biomedical Engineering, University of Toronto
 
 ## Demo
- This [**webpage**](http://34.130.214.49:8080/) is a online demonstration of simulating longitudinal VF tests using our model and the corresponding glaucomatous visions.
+ This [**webpage**](http://34.0.37.44:8080/) is a online demonstration of simulating longitudinal VF tests using our model and the corresponding glaucomatous visions.
 
 ## Usage
 #### Load the **Rotterdam**[[1]](#1) longitudinal visual field datasets and process the baseline VF tests:
