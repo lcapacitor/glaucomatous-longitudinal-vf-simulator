@@ -1,5 +1,5 @@
 # A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma
- This repository is a part of the paper "[**A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma**](https://tvst.arvojournals.org/article.aspx?articleid=2791260.)" published in Translational Vision Science & Technology. 2023;12(6):27,https://doi.org/10.1167/tvst.12.6.27.
+ This repository is a part of the paper "[**A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma**](https://tvst.arvojournals.org/article.aspx?articleid=2791260)" published in Translational Vision Science & Technology. 2023;12(6):27,https://doi.org/10.1167/tvst.12.6.27.
 
 ![vf_simulator](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_eye_218/eye_218_1090.png)
 
