@@ -5,15 +5,6 @@
 
 Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. The baseline VF has an arcuate-shaped scotoma in the superior field, and the VF sequence manifests a moderate progression with the MD linear regression slope of -0.5 dB/year. Panel (b) shows a simulated stable VF sequence (MD slope of 0 dB/year). Panel (c) shows a simulated VF sequence with the same progression rate (MD slope of −0.5 dB/year) as the patient’s data. Panels (d) and (e) show simulated VF sequences with higher progression rates (MD slopes of −1.0 dB/year and −1.5 dB/year, respectively) than that of the patient’s data. 
 
-
-## Authors
-  - **Yan Li**, The Edward S. Rogers Sr. Department of Electrical & Computer Engineering, University of Toronto
-  - **Moshe Eizenman**, Department of Ophthalmology & Vision Sciences, University of Toronto
-  - **Runjie B. Shi**, Institute of Biomedical Engineering and Temerty Faculty of Medicine, University of Toronto
-  - **Yvonne Buys**, Department of Ophthalmology & Vision Sciences, University of Toronto
-  - **Graham Trope**, Department of Ophthalmology & Vision Sciences, University of Toronto
-  - **Willy Wong**, Department of Electrical and Computer Engineering and Institute of Biomedical Engineering, University of Toronto
-
 ## Demo
  This [**webpage**](http://34.0.37.44:8080/) is an online demonstration of simulating longitudinal VF tests using our model and the corresponding glaucomatous visions.
 
@@ -45,6 +36,9 @@ When setting ```verbose=2```, each simulated VF sequence is visualized, includin
 vf_simulator.visualize_var_rates(vf_data_list, repeat_per_eye=1000, selected_eye=[218], progress_rate=[0,-1.5,-1.6,-2.5], progress_cluster=['stable',3,6,8])
 ```
 
+## Citation
+Li Y, Eizenman M, Shi RB, Buys YM, Trope GE, Wong W. A data-driven model for simulating longitudinal visual field tests in
+glaucoma. Transl Vis Sci Technol. 2023;12(6):27, https://doi.org/10.1167/tvst.12.6.27
 
 ## License
 MIT
