@@ -1,13 +1,13 @@
 # A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma
- This repository is a part of the paper "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma" published in Translational Vision Science & Technology June 2023.
+ This repository is a part of the paper "[**A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma**](https://tvst.arvojournals.org/article.aspx?articleid=2791260.)" published in Translational Vision Science & Technology. 2023;12(6):27,https://doi.org/10.1167/tvst.12.6.27.
 
 ![vf_simulator](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_eye_218/eye_218_1090.png)
 
-Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. The baseline VF has an arcuate-shaped scotoma in the superior field, and the VF sequence manifests a moderate progression with MD linear regression slope of -0.5 dB/year. Panels (b) shows a simulated stable VF sequence (MD slope of 0 dB/year). Panel (c) shows a simulated VF sequence with the same progression rate (MD slope of −0.5 dB/year) as the patient’s data. Panels (d) and (e) show simulated VF sequences with higher progression rates that of the patient’s data (MD slopes of −1.0 dB/year and −1.5 dB/year, respectively). 
+Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. The baseline VF has an arcuate-shaped scotoma in the superior field, and the VF sequence manifests a moderate progression with the MD linear regression slope of -0.5 dB/year. Panel (b) shows a simulated stable VF sequence (MD slope of 0 dB/year). Panel (c) shows a simulated VF sequence with the same progression rate (MD slope of −0.5 dB/year) as the patient’s data. Panels (d) and (e) show simulated VF sequences with higher progression rates (MD slopes of −1.0 dB/year and −1.5 dB/year, respectively) than that of the patient’s data. 
 
 
 ## Authors
-  - **Yan Li**, Department of Electrical & Computer Engineering, University of Toronto
+  - **Yan Li**, The Edward S. Rogers Sr. Department of Electrical & Computer Engineering, University of Toronto
   - **Moshe Eizenman**, Department of Ophthalmology & Vision Sciences, University of Toronto
   - **Runjie B. Shi**, Institute of Biomedical Engineering and Temerty Faculty of Medicine, University of Toronto
   - **Yvonne Buys**, Department of Ophthalmology & Vision Sciences, University of Toronto
@@ -15,7 +15,7 @@ Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. The ba
   - **Willy Wong**, Department of Electrical and Computer Engineering and Institute of Biomedical Engineering, University of Toronto
 
 ## Demo
- This [**webpage**](http://34.0.37.44:8080/) is a online demonstration of simulating longitudinal VF tests using our model and the corresponding glaucomatous visions.
+ This [**webpage**](http://34.0.37.44:8080/) is an online demonstration of simulating longitudinal VF tests using our model and the corresponding glaucomatous visions.
 
 ## Usage
 #### Load the **Rotterdam**[[1]](#1) longitudinal visual field datasets and process the baseline VF tests:
@@ -44,7 +44,6 @@ When setting ```verbose=2```, each simulated VF sequence is visualized, includin
 ```
 vf_simulator.visualize_var_rates(vf_data_list, repeat_per_eye=1000, selected_eye=[218], progress_rate=[0,-1.5,-1.6,-2.5], progress_cluster=['stable',3,6,8])
 ```
-
 
 
 ## License
