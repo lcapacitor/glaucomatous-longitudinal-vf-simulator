@@ -214,6 +214,8 @@ class Longitudinal_VF_simulator:
         sim_prog_num = np.argmin(diff[diff>=0])
         cutoff_num = np.argmin(cum_proba_num_prog_center[(cum_proba_num_prog_center-cutoff_p)>=0])
         sim_prog_num = min(sim_prog_num, cutoff_num)
+        if sim_data_type=='progress':
+            sim_prog_num += 1
         #----------------------------------------
         if sim_data_type=='stable':
             sim_prog_num = 0
