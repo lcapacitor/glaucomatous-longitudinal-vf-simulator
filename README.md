@@ -5,8 +5,8 @@
 
 Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. The baseline VF has an arcuate-shaped scotoma in the superior field, and the VF sequence manifests a moderate progression with the MD linear regression slope of -0.5 dB/year. Panel (b) shows a simulated stable VF sequence (MD slope of 0 dB/year). Panel (c) shows a simulated VF sequence with the same progression rate (MD slope of −0.5 dB/year) as the patient’s data. Panels (d) and (e) show simulated VF sequences with higher progression rates (MD slopes of −1.0 dB/year and −1.5 dB/year, respectively) than that of the patient’s data. 
 
-## Demo
- This [**webpage**](http://34.0.37.44:8080/) is an online demonstration of simulating longitudinal VF tests using our model and the corresponding glaucomatous visions.
+<!--  ## Demo -->
+<!--   This [**webpage**](http://34.0.37.44:8080/) is an online demonstration of simulating longitudinal VF tests using our model and the corresponding glaucomatous visions. -->
 
 ## Usage
 #### Load the **Rotterdam**[[1]](#1) longitudinal visual field datasets and process the baseline VF tests:
