@@ -8,7 +8,15 @@ Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. The ba
 <!--  ## Demo -->
 <!--   This [**webpage**](http://34.0.37.44:8080/) is an online demonstration of simulating longitudinal VF tests using our model and the corresponding glaucomatous visions. -->
 
+## [Online Demo Platform](https://apacitor.pythonanywhere.com/)
+
+
 ## Usage
+##### Install Dependencies
+```
+pip install -r requirements.txt
+```
+
 ##### Load the **Rotterdam**[[1]](#1) longitudinal visual field datasets and process the baseline VF tests:
 ```
 data_list_rt = load_all_rt_by_eyes(pt_list=None, ceiling=35, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
