@@ -11,7 +11,12 @@ Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. The ba
 ## Usage
 #### Load the **Rotterdam**[[1]](#1) longitudinal visual field datasets and process the baseline VF tests:
 ```
-data_list_rt = load_all_rt_by_eyes(pt_list=None, ceiling=ceiling, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
+data_list_rt = load_all_rt_by_eyes(pt_list=None, ceiling=35, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
+```
+
+#### Intialize vf_simulator and process base tests
+```
+vf_simulator = Longitudinal_VF_simulator()
 vf_data_list = vf_simulator.process_baseline(data_list_rt)
 ```
 
@@ -21,6 +26,7 @@ simulated_stable_data, simulated_progress_data = vf_simulator.simulate(vf_data_l
 ```
 When setting ```verbose=1```, the textual simulation log is provided (the selection of progression centers/clusters).
 When setting ```verbose=2```, each simulated VF sequence is visualized, including the simulated progression patterns. 
+When setting ```verbose=3```, all plots will be saved. 
 
 #### Example of a simulated progressing VF sequence:
 ![prog_eye](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_prog/prog_eye_01.png)
@@ -28,7 +34,6 @@ When setting ```verbose=2```, each simulated VF sequence is visualized, includin
 
 #### Example of a simulated stable VF sequence:
 ![stable_eye](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_stable/stable_eye_01.png)
-
 
 
 #### Visualize simulation VF sequences

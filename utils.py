@@ -1,23 +1,19 @@
 #!/usr/bin/env python3
-'''
+"""
 Simulation model for longitudinal Visual Field tests in glaucoma
 
 This is part of the paper "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma"
+(https://doi.org/10.1167/tvst.12.6.27)
 
-Author: Yan Li
-
-Version: v1.0
-
-Date: 2022-12
-
+Author: Leo Yan Li-Han
+Version: v2.0
+Date: 2025-01
 License: MIT
-'''
-
+"""
+import cv2
 import numpy as np
 import pandas as pd
-import matplotlib as mpl
 import matplotlib.pyplot as plt
-from PIL import Image
 from scipy import stats
 from tqdm import tqdm
 from constants import BS_INDEX_OD_54, LOC_24_2, EMPTY_INDEX_OD_72, EMPTY_INDEX_OD_72_BS, VF_GRAY_PATTERN, MATRIX_784x54
@@ -105,14 +101,13 @@ def grayscale_pattern(interp_dB):
             v = VF_GRAY_PATTERN['pattern_v26']
         else:
             v = VF_GRAY_PATTERN['pattern_v31']
-        im = Image.fromarray(v.to_numpy().astype(bool))
-        im = im.resize((24, 24), Image.NEAREST)
-        assert im.mode == '1'
-        im = im.convert("LA")
-        im_arr = np.asarray(im)[:,:,0]
+        img_array = v.astype(np.uint8)
+        img_resized = cv2.resize(img_array, (24, 24), interpolation=cv2.INTER_NEAREST)
+        im_gray = cv2.cvtColor(img_resized, cv2.COLOR_GRAY2BGRA)[:, :, 0] * 255
     else:
-        im_arr = np.ones((24,24))*255
-    return im_arr
+        im_gray = np.ones((24, 24), dtype=np.uint8) * 255
+    return im_gray
+
 
 def show_sim_vf(vf, d_set_name, d_type_name, field_type=0, prog_pat=None, 
                 eye_index=None, num_flu=15, is_grayscale=True, is_save=False):
