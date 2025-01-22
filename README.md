@@ -9,18 +9,18 @@ Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. The ba
 <!--   This [**webpage**](http://34.0.37.44:8080/) is an online demonstration of simulating longitudinal VF tests using our model and the corresponding glaucomatous visions. -->
 
 ## Usage
-#### Load the **Rotterdam**[[1]](#1) longitudinal visual field datasets and process the baseline VF tests:
+##### Load the **Rotterdam**[[1]](#1) longitudinal visual field datasets and process the baseline VF tests:
 ```
 data_list_rt = load_all_rt_by_eyes(pt_list=None, ceiling=35, min_len=10, cut_type=None, fu_year=5, md_range=None, verbose=1)
 ```
 
-#### Intialize vf_simulator and process base tests
+##### Intialize vf_simulator and process base tests:
 ```
 vf_simulator = Longitudinal_VF_simulator()
 vf_data_list = vf_simulator.process_baseline(data_list_rt)
 ```
 
-#### Simulate stable and progressing VF sequences based on the given baseline tests
+##### Simulate stable and progressing VF sequences based on the given baseline tests:
 ```
 simulated_stable_data, simulated_progress_data = vf_simulator.simulate(vf_data_list, sim_len=15, test_interval=0.5, verbose=0)
 ```
@@ -28,15 +28,15 @@ When setting ```verbose=1```, the textual simulation log is provided (the select
 When setting ```verbose=2```, each simulated VF sequence is visualized, including the simulated progression patterns. 
 When setting ```verbose=3```, all plots will be saved. 
 
-#### Example of a simulated progressing VF sequence:
+##### Example of a simulated progressing VF sequence:
 ![prog_eye](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_prog/prog_eye_01.png)
 
 
-#### Example of a simulated stable VF sequence:
+##### Example of a simulated stable VF sequence:
 ![stable_eye](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_stable/stable_eye_01.png)
 
 
-#### Visualize simulation VF sequences
+##### Visualize simulation VF sequences
 ```
 vf_simulator.visualize_var_rates(vf_data_list, repeat_per_eye=1000, selected_eye=[218], progress_rate=[0,-1.5,-1.6,-2.5], progress_cluster=['stable',3,6,8])
 ```
