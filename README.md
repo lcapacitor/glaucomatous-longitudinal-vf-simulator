@@ -12,7 +12,7 @@ Panel (a): Visual field (VF) sequence of a glaucoma patient over 7 years. The ba
 
 
 ## Usage
-##### Install Dependencies
+##### Install Dependencies:
 ```
 pip install -r requirements.txt
 ```
