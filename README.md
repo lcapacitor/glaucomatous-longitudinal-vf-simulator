@@ -28,18 +28,19 @@ When setting ```verbose=1```, the textual simulation log is provided (the select
 When setting ```verbose=2```, each simulated VF sequence is visualized, including the simulated progression patterns. 
 When setting ```verbose=3```, all plots will be saved. 
 
-##### Example of a simulated progressing VF sequence:
-![prog_eye](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_prog/prog_eye_01.png)
-
-
-##### Example of a simulated stable VF sequence:
-![stable_eye](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_stable/stable_eye_01.png)
-
-
 ##### Visualize simulation VF sequences
 ```
 vf_simulator.visualize_var_rates(vf_data_list, repeat_per_eye=1000, selected_eye=[218], progress_rate=[0,-1.5,-1.6,-2.5], progress_cluster=['stable',3,6,8])
 ```
+
+#### Example of a simulated progressing VF sequence:
+![prog_eye](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_prog/prog_eye_01.png)
+
+
+#### Example of a simulated stable VF sequence:
+![stable_eye](https://github.com/lcapacitor/glaucomatous-longitudinal-vf-simulator/blob/main/figures/sim_stable/stable_eye_01.png)
+
+
 
 ## Citation
 Li Y, Eizenman M, Shi RB, Buys YM, Trope GE, Wong W. A data-driven model for simulating longitudinal visual field tests in
