@@ -542,6 +542,7 @@ class Longitudinal_VF_simulator:
             progress_cluster (list):The number of progression clusters for each simulated sequence.
             progress_range (list):  Thresholds to define fast and slow progression from the center.
             noise_model (str):      Noise model: template or independent
+            condition_on (Boolean): Whether impose a condition on the MD slope of simulated VF sequences. 
         """
         assert len(progress_rate)==len(progress_cluster)
         if noise_model is None:
@@ -555,7 +556,7 @@ class Longitudinal_VF_simulator:
         panel_names= list(string.ascii_lowercase)[:num_rows]
         fontsize   = 8
         if condition_on:
-            slp_diff_thres = 0.1
+            md_slp_diff_thres = 0.1
         #===============================
         # Get statistics
         #===============================
@@ -609,7 +610,7 @@ class Longitudinal_VF_simulator:
                             sim_stable_seq_md  = sim_stable_selected[:, 52*3+1]
                             sim_stable_seq_age = sim_stable_selected[:, 52*3]
                             sim_stable_seq_md_slp,_,_,_,_ = stats.linregress(sim_stable_seq_age, sim_stable_seq_md)
-                            if not abs(sim_stable_seq_md_slp)<slp_diff_thres:
+                            if not abs(sim_stable_seq_md_slp)<md_slp_diff_thres:
                                 break
                     # Simulate progressing VF sequence
                     else:
@@ -628,7 +629,7 @@ class Longitudinal_VF_simulator:
                     # Select desired MD slopes
                     if len(sim_prog_md_slope_list)==3:
                         r1, r2, r3 = sim_prog_md_slope_list 
-                        if not ( (abs(r1-real_seq_md_slp)<slp_diff_thres) and (abs(r2-(-1.0))<slp_diff_thres) and (abs(r3-(-1.5))<slp_diff_thres) ):
+                        if not ( (abs(r1-real_seq_md_slp)<md_slp_diff_thres) and (abs(r2-(-1.0))<md_slp_diff_thres) and (abs(r3-(-1.5))<md_slp_diff_thres) ):
                             continue
                         print(sim_stable_seq_md_slp, r1, r2, r3)
                     else:
