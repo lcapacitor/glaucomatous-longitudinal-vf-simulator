@@ -1,25 +1,21 @@
 #!/usr/bin/env python3
-'''
+"""
 Simulation model for longitudinal Visual Field tests in glaucoma
 
 This is part of the paper "A Data-driven Model for Simulating Longitudinal Visual Field Tests in Glaucoma"
+(https://doi.org/10.1167/tvst.12.6.27)
 
-Author: Yan Li
-
-Version: v1.0
-
-Date: 2022-12
-
+Author: Leo Yan Li-Han
+Version: v2.0
+Date: 2025-01
 License: MIT
-'''
+"""
 
 import os
 import joblib
 import string
-import pickle
 import datetime
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 
 from tqdm import tqdm
@@ -151,7 +147,16 @@ class Longitudinal_VF_simulator:
                                noise_model='template', sim_data_type='random', progress_cluster='multi-cluster', verbose=0):
         """
         Generate a sequence of VF tests given the baseline data
-        base_data: numpy array (52*3+2,)
+        base_data:              numpy array (52*3+2,)
+        stats_params:           parameters for simulations
+        sim_len (int):          the number of VF tests for simulating, e.g., 15 for 7 years
+        test_interval (float):  the follow-up interval between 2 consecutive VF tests.
+        min_gh_dist (int):      the minimal gh-differences between two progression centers.
+        progress_rate (str/float)
+        progress_range (list):  thresholds distance from the center for fast and slow progressions.
+        noise_model (str):      the noise model used for simulation, 'template' or 'independent'
+        sim_data_type (str):    'progress' or 'stable'
+        progress_cluster (str): the cluster type used for simulation, 'multi-cluster' or 'single-cluster'
         """
         #--------------------------------------------------------
         # Prepare data and stats
@@ -525,6 +530,19 @@ class Longitudinal_VF_simulator:
     def visualize_var_rates(self, vf_data, repeat_per_eye, sim_len=15, test_interval=0.5, selected_eye=None, min_gh_dist=10, progress_rate=['random', 'random', 'random', 'random'], 
                             progress_cluster=['stable', 'multi-cluster', 'multi-cluster', 'multi-cluster'], progress_range=[10, 5], noise_model=None, condition_on=True, 
                             save_path=None, save_fig_obj=False):
+        """
+        Visualize n simulated VF sequences
+            vf_data (list):         The list of VF arrays
+            repeat_per_eye (int):   The number of repeated simulation for each selected eye
+            sim_len (int):          The number of simulated VF tests for each sequence
+            test_interval (float):  Simulation time intervals, in years.
+            selected_eye (int):     The index of the selected eye in vf_data. 
+            min_gh_dist (int):      The minimal gh-distance between two progression centers.
+            progress_rate (list):   The list of progression rates used for each simulated sequence. 
+            progress_cluster (list):The number of progression clusters for each simulated sequence.
+            progress_range (list):  Thresholds to define fast and slow progression from the center.
+            noise_model (str):      Noise model: template or independent
+        """
         assert len(progress_rate)==len(progress_cluster)
         if noise_model is None:
             noise_model = ['template']*len(progress_cluster)
@@ -659,7 +677,7 @@ class Longitudinal_VF_simulator:
                         if not os.path.exists(fig_folder):
                             os.makedirs(fig_folder)
                         fname_fig = f'eye_{selected_eye[e]}_{repeat}_fig_obj.pkl'
-                        pickle.dump(fig, open(os.path.join(fig_folder, fname_fig), 'wb'))
+                        joblib.dump(fig, open(os.path.join(fig_folder, fname_fig), 'wb'))
                     plt.close()
 
 
@@ -677,7 +695,6 @@ if __name__ == '__main__':
     # Process baseline VF tests
     vf_simulator = Longitudinal_VF_simulator()
     vf_data_list = vf_simulator.process_baseline(data_list_rt)
-    print(f'[INFO] Total eligible eyes {len(vf_data_list)}')
 
     # Simulate stable and progressing VF sequences
     simulated_stable_data, simulated_progress_data = vf_simulator.simulate(vf_data_list, sim_len=15, test_interval=0.5, verbose=0)
